@@ -13,7 +13,6 @@ class state:
         self.pos = pos #positions
         self.emp = emp #position of empty
         self.path = []
-
     
   
     def left(self):
@@ -78,6 +77,17 @@ class state:
         
         return None
     
+    
     def move(self):
         return [self.left(), self.right(), self.up(), self.down()]
+    
+    
+    def evaluation(goal):
+        heuristic = 0
+        
+        
+        
+        
+        
+        
         
