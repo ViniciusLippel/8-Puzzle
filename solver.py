@@ -7,7 +7,8 @@ Created on Fri Nov  5 10:17:59 2021
 
 from treelib import Tree
 from collections import deque
-import PriorityQueue
+import heapdict
+
 
 # Breadth First Search
 # =============================================================================
@@ -24,6 +25,7 @@ def bfs(ini_state, goal):
     while openset:
         cur_state = openset.popleft()
         closed.append(cur_state.pos)
+        #print(cur_state.print_pos(), "\n")
         print(cur_state.pos)
         
         if cur_state.pos == goal:
@@ -37,27 +39,29 @@ def bfs(ini_state, goal):
                     openset.append(st)
 
 
-
 # A* Search
 # =============================================================================
 
-def astar(ini_state):
+def astar(ini_state, goal):
     
-    global goal
+    openset = heapdict.heapdict()
+    closed = []
     
-    openset = PriorityQueue()
-    closed = set()
-    
-    openset.add(ini_state)
+    openset[ini_state] = ini_state.evaluation(goal)
     
     while openset:
-      cur_state = openset.poll()
+      cur_state = openset.popitem()[0]
+
+      #print(cur_state.print_pos(), "\n")
+      print(cur_state.pos)
       
       if cur_state.pos == goal:
-        return cur_state
-        
+          return cur_state
+         
       for st in cur_state.move():
-        if st not in closed:
-          openset.add(st)
-      closed.add(cur_state)
+          if st:
+              if st.pos not in closed:
+                  openset[st] = st.evaluation(goal)
+          closed.append(cur_state.pos)
+
 

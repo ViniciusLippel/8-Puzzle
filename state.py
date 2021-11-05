@@ -6,6 +6,8 @@ Created on Wed Nov  3 16:53:01 2021
 """
 
 import copy
+import numpy as np
+from itertools import chain
 
 class state:
     
@@ -82,9 +84,25 @@ class state:
         return [self.left(), self.right(), self.up(), self.down()]
     
     
-    def evaluation(goal):
+    def evaluation(self, goal):
         heuristic = 0
+        goal_flat = list(chain.from_iterable(goal))
+        pos_flat = list(chain.from_iterable(self.pos))
         
+        for i in pos_flat:
+            dist = abs(pos_flat.index(i) - goal_flat.index(i))
+            
+            i = int(dist/3)
+            j = int(dist%3)
+            
+            heuristic = heuristic + i + j
+            
+        return heuristic
+    
+    #print puzzle in 2D
+    def print_pos (self):
+        for i in self.pos:
+            print(i)
         
         
         
