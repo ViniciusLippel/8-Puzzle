@@ -11,6 +11,7 @@ class state:
         self.path = []
     
     
+    #Moving empty left
     def left(self):
         s = copy.deepcopy(self)
         
@@ -27,6 +28,7 @@ class state:
         return None
     
     
+    #Moving empty right
     def right(self):
         s = copy.deepcopy(self)
         
@@ -43,6 +45,7 @@ class state:
         return None
     
     
+    #Moving empty up
     def up(self):
         s = copy.deepcopy(self)
         
@@ -59,6 +62,7 @@ class state:
         return None
     
     
+    #Moving empty down
     def down(self):
         s = copy.deepcopy(self)
         
@@ -75,10 +79,13 @@ class state:
         return None
     
     
+    #Moving in all possible directions
     def move(self):
         return [self.left(), self.right(), self.up(), self.down()]
     
+# =============================================================================
     
+    #Evaluation function to A* priority queue 
     def evaluation(self, goal):
         heuristic = 0
         goal_flat = list(chain.from_iterable(goal))
@@ -95,6 +102,8 @@ class state:
             
         return heuristic
     
+    
+    #Binary search to optimize list search
     def binary_search(self, el, li, start, end):
         if start > end:
             return False
@@ -110,19 +119,25 @@ class state:
         else:
             return self.binary_search(el, li, mid+1, end)
     
+    
+    #Check if self.pos is into certain list
     def isin(self, li):
         test = self.binary_search(self.pos, li, 0, len(li)-1)
-        #print(test)
         return test
+    
     
     #print puzzle in 2D
     def print_pos (self):
         for i in self.pos:
             print(i)
     
+    
+    #Generate key to dictionary
     def key(self):
         return ''.join(str(i) for i in list(chain.from_iterable(self.pos)))
     
+    
+    #Return the 2d index of value in self.pos
     def index_2d(self, v):
         for i, x in enumerate(self.pos):
             if v in x:
