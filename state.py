@@ -8,7 +8,7 @@ class state:
     def __init__(self, pos):
         self.pos = pos #positions
         self.emp = self.index_2d(0) #position of empty
-        self.path = []
+        self.path = [] #path to solution
     
     
     #Moving empty left
@@ -98,33 +98,10 @@ class state:
             j = int(dist%3)
             
             heuristic = heuristic + i + j
-            heuristic = heuristic + len(list(chain.from_iterable(self.path)))
             
+        heuristic = heuristic + len(list(chain.from_iterable(self.path)))
+        
         return heuristic
-    
-    
-    #Binary search to optimize list search
-    def binary_search(self, el, li, start, end):
-        if start > end:
-            return False
-
-        mid = (start + end) // 2
-        
-        if el == li[mid]:
-            return True
-    
-        if el < li[mid]:
-            return self.binary_search(el, li, start, mid-1)
-        
-        else:
-            return self.binary_search(el, li, mid+1, end)
-    
-    
-    #Check if self.pos is into certain list
-    def isin(self, li):
-        test = self.binary_search(self.pos, li, 0, len(li)-1)
-        return test
-    
     
     #print puzzle in 2D
     def print_pos (self):
